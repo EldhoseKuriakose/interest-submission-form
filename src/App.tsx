@@ -68,9 +68,9 @@ server.get('/api/form-configurations', {
 });
 
 // Form submission api
-server.post('api/form-submission',(schema: any, request: any) => {
-  let attrs = JSON.parse(request.requestBody)
-  console.log(attrs)
+server.post('api/form-submission', (schema: any, request: any) => {
+  let attrs = JSON.parse(request.requestBody);
+  console.log(attrs);
   return { status: 200 };
 });
 

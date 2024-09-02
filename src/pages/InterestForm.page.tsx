@@ -22,7 +22,8 @@ const InterestForm = (): JSX.Element => {
       })
       .catch((e) => {
         // Error
-      }).finally(() => {
+      })
+      .finally(() => {
         // Disable loading
         setLoading(false);
       });
@@ -32,12 +33,12 @@ const InterestForm = (): JSX.Element => {
   useEffect(() => {
     if (typeof formJsonConfig?.timeoutMinutes === 'number') {
       formTimeout.current = setTimeout(() => {
-        alert("Timeout reached. Please start fresh!")
+        alert('Timeout reached. Please start fresh!');
         // Reloading page when scroll timeout reaaches
         window.location.reload();
       }, 1000 * 60 * formJsonConfig.timeoutMinutes);
     }
-  }, [formJsonConfig?.timeoutMinutes])
+  }, [formJsonConfig?.timeoutMinutes]);
 
   // Submitting form
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -52,10 +53,13 @@ const InterestForm = (): JSX.Element => {
       setCurrentPage((prevPage) => prevPage + 1);
     } else {
       // Submitting form to server
-      const result = await fetch('api/form-submission', { method: 'POST', body: JSON.stringify(formDataValues) })
+      const result = await fetch('api/form-submission', {
+        method: 'POST',
+        body: JSON.stringify(formDataValues)
+      });
       if (result.status === 201) {
         // Form submission success
-        alert("Form submitted successfully!");
+        alert('Form submitted successfully!');
 
         // Reloading page
         window.location.reload();
