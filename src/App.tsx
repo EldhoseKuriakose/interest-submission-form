@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import { createServer } from 'miragejs';
+import InterestForm from './pages/InterestForm.page';
 import './App.css';
 
 // Mirage js server api mock setup
 let server = createServer();
+
+// Form configuration api
 server.get('/api/form-configurations', {
   data: {
     pages: [
@@ -65,27 +67,17 @@ server.get('/api/form-configurations', {
   }
 });
 
+// Form submission api
+server.post('api/form-submission',(schema: any, request: any) => {
+  let attrs = JSON.parse(request.requestBody)
+  console.log(attrs)
+  return { status: 200 };
+});
+
 function App() {
-  const [formJsonConfig, setFormJsonConfig] = useState<any>(null);
-
-  // Fetching form-configurations api from miragejs
-  useEffect(() => {
-    fetch('/api/form-configurations')
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.data) {
-          // Setting the form configurations
-          setFormJsonConfig(json.data);
-        }
-      })
-      .catch((e) => {
-        // Error
-      });
-  }, []);
-
   return (
     <div className='App'>
-      <></>
+      <InterestForm />
     </div>
   );
 }
